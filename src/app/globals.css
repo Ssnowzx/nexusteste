@@ -1,0 +1,488 @@
+@import "tailwindcss";
+
+/* ============================================
+   GAMING LANDING PAGE — DARK THEME
+   Faithful to kodus.io reference
+   ============================================ */
+
+/* --- Base & Root Variables --- */
+
+:root {
+  --bg-deepest: #0d0f1a;
+  --bg-deep: #121425;
+  --bg-mid: #181a2e;
+  --bg-surface: #1e2036;
+
+  --primary-purple: #6c5ce7;
+  --primary-cyan: #00d2ff;
+  --primary-teal: #0cebeb;
+
+  --accent-gold: #d4a853;
+  --accent-gold-light: #e8c476;
+  --accent-gold-dark: #b8923f;
+  --accent-fire: #ff6b6b;
+
+  --text-primary: #ffffff;
+  --text-muted: #8a8aa3;
+  --text-subtle: #5a5a75;
+
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-bg-hover: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(255, 255, 255, 0.15);
+
+  --grid-color: rgba(255, 255, 255, 0.04);
+  --grid-color-strong: rgba(255, 255, 255, 0.07);
+}
+
+/* --- Global Resets & Defaults --- */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-deepest);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Background Grid (kodus.io style) --- */
+
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
+    linear-gradient(var(--grid-color-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color-strong) 1px, transparent 1px);
+  background-size:
+    60px 60px,
+    60px 60px,
+    240px 240px,
+    240px 240px;
+}
+
+/* --- Pixel Art Decorations --- */
+
+.pixel-invader {
+  position: absolute;
+  width: 40px;
+  height: 32px;
+  opacity: 0.12;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+/* --- Selection --- */
+
+::selection {
+  background: rgba(212, 168, 83, 0.4);
+  color: var(--text-primary);
+}
+
+::-moz-selection {
+  background: rgba(212, 168, 83, 0.4);
+  color: var(--text-primary);
+}
+
+/* --- Custom Scrollbar --- */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-deepest);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-gold-dark);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gold);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-gold-dark) var(--bg-deepest);
+}
+
+/* ============================================
+   TYPOGRAPHY — PIXEL FONT
+   ============================================ */
+
+.font-pixel {
+  font-family: "Press Start 2P", "Courier New", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+}
+
+/* --- Gradient Text (Gold/Amber like kodus.io) --- */
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold), var(--accent-gold-dark));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* --- Glow Text --- */
+
+.glow-text {
+  text-shadow:
+    0 0 10px rgba(212, 168, 83, 0.4),
+    0 0 20px rgba(212, 168, 83, 0.2),
+    0 0 40px rgba(212, 168, 83, 0.1);
+}
+
+/* ============================================
+   COMPONENT CLASSES
+   ============================================ */
+
+/* --- Glass Card --- */
+
+.glass-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  will-change: transform;
+}
+
+.glass-card:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+}
+
+/* --- Terminal Card (like kodus.io trusted_by.exe) --- */
+
+.terminal-card {
+  background: rgba(18, 20, 37, 0.9);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--glass-border);
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.terminal-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* --- Primary Button (Gold/Amber like kodus.io) --- */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 36px;
+  background: linear-gradient(180deg, var(--accent-gold-light), var(--accent-gold));
+  color: #1a1a2e;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform, opacity;
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transform: translateX(-100%);
+  will-change: transform;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 20px rgba(212, 168, 83, 0.4),
+    0 0 40px rgba(212, 168, 83, 0.2);
+}
+
+.btn-primary:hover::before {
+  animation: shimmer 1.5s infinite;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* --- Secondary Button (Dark glass like kodus.io) --- */
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 36px;
+  background: var(--bg-mid);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  will-change: transform;
+}
+
+.btn-secondary:hover {
+  background: var(--bg-surface);
+  border-color: var(--glass-border-hover);
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* --- Tab Buttons (like kodus.io "Start with Git" / "Start with Terminal") --- */
+
+.tab-group {
+  display: flex;
+  background: var(--bg-mid);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tab-btn {
+  padding: 16px 32px;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.tab-btn.active {
+  color: var(--text-primary);
+}
+
+.tab-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  background: var(--accent-gold);
+}
+
+/* --- Neon Border --- */
+
+.neon-border {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.neon-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark), var(--accent-gold));
+  background-size: 300% 300%;
+  animation: pulseGlow 4s ease-in-out infinite;
+  z-index: -1;
+  will-change: opacity;
+}
+
+.neon-border::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 11px;
+  background: var(--bg-deep);
+  z-index: -1;
+}
+
+/* --- Float Animation --- */
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* --- Pulse Glow --- */
+
+.pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+  will-change: opacity;
+}
+
+/* --- Fade In Up (Scroll Reveal) --- */
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  will-change: opacity, transform;
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Scroll Fade --- */
+
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.scroll-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Particle --- */
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--accent-gold);
+  border-radius: 50%;
+  opacity: 0.3;
+  pointer-events: none;
+  animation: float 8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.particle:nth-child(odd) {
+  background: var(--primary-purple);
+  animation-duration: 10s;
+  animation-delay: -3s;
+}
+
+.particle:nth-child(3n) {
+  width: 2px;
+  height: 2px;
+  opacity: 0.2;
+  animation-duration: 12s;
+  animation-delay: -5s;
+}
+
+/* --- Carousel Track --- */
+
+.carousel-track {
+  display: flex;
+  gap: 48px;
+  animation: scroll 30s linear infinite;
+  will-change: transform;
+}
+
+.carousel-track:hover {
+  animation-play-state: paused;
+}
+
+/* ============================================
+   KEYFRAMES
+   ============================================ */
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 1;
+    background-position: 0% 50%;
+  }
+  50% {
+    opacity: 0.6;
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
