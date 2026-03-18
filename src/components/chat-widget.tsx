@@ -9,14 +9,16 @@ interface Message {
   time: string;
 }
 
-const INITIAL_MESSAGES: Message[] = [
-  {
-    id: 1,
-    text: "Hey there, gamer! 🎮 Welcome to NEXUS. How can I help you today?",
-    sender: "bot",
-    time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-  },
-];
+function createInitialMessages(): Message[] {
+  return [
+    {
+      id: 1,
+      text: "Hey there, gamer! 🎮 Welcome to NEXUS. How can I help you today?",
+      sender: "bot",
+      time: "",
+    },
+  ];
+}
 
 const BOT_REPLIES = [
   "Great question! Our platform supports PC, PlayStation, Xbox, and Nintendo Switch.",
@@ -29,7 +31,7 @@ const BOT_REPLIES = [
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
+  const [messages, setMessages] = useState<Message[]>(createInitialMessages);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -38,6 +40,16 @@ export default function ChatWidget() {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
+  useEffect(() => {
+    setMessages((prev) =>
+      prev.map((msg) =>
+        msg.time === ""
+          ? { ...msg, time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) }
+          : msg
+      )
+    );
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
